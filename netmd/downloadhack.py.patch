@@ -1,0 +1,82 @@
+--- a/downloadhack.py
++++ b/downloadhack.py
+@@ -1,9 +1,33 @@
+ #!/usr/bin/python
+ import os
++import sys
++import getopt
+ import usb1
+ import libnetmd
+ from Crypto.Cipher import DES
+ 
++# USAGE
++#######
++# first: create an uncompressed 16-bit stereo PCM:
++# ffmpeg -i $audiofile -f s16be test.raw
++#######
++# plug in your NetMD using USB and use this script accordingly (title is optional):
++# sudo python downloadhack.py --filename ~/music/test.raw --title songtitle
++
++from optparse import OptionParser
++parser = OptionParser()
++parser.add_option('-b', '--bus')
++parser.add_option('-d', '--device')
++parser.add_option('-f', '--filename')
++parser.add_option('-t', '--title')
++(options, args) = parser.parse_args()
++assert len(args) < 4
++filename=options.filename
++if options.title != None:
++    title=options.title
++else:
++    title="no title"
++
+ def main(bus=None, device_address=None):
+     context = usb1.LibUSBContext()
+     for md in libnetmd.iterdevices(context, bus=bus,
+@@ -22,17 +46,17 @@ class EKB1_10:
+         return (["\x25\x45\x06\x4d\xea\xca\x14\xf9\x96\xbd\xc8\xa4\x06\xc2\x2b\x81"], 9, \
+                 "\x68\x86\x90\x89\xb7\x24\x18\x1e\xe8\x60\x04\x1d\x2e\xb3\xfd\xdb\xe7\x4c\x7c\xcd\xb1\xe3\x06\xc0")
+ 
+-testframes=4644
++framecount=int(os.path.getsize(filename)/2048)
+ 
+ class MDTrack:
+     def getTitle(self):
+-        return "HACK"
++        return title
+ 
+     def getFramecount(self):
+-        return testframes
++        return framecount
+ 
+     def getDataFormat(self):
+-        return libnetmd.WIREFORMAT_LP2
++        return libnetmd.WIREFORMAT_PCM
+ 
+     def getContentID(self):
+         # value probably doesn't matter
+@@ -52,10 +76,9 @@ class MDTrack:
+         keycrypter = DES.new(self.getKEK(), DES.MODE_ECB)
+         key = keycrypter.encrypt(datakey)
+         datacrypter = DES.new(key, DES.MODE_CBC, firstiv)
+-        # to be obtained from http://users.physik.fu-berlin.de/~mkarcher/ATRAC/LP2.wav
+-        file = open("/tmp/LP2.wav")
++        file = open(filename)
+         file.read(60)
+-        data = file.read(testframes*192)
++        data = file.read(framecount*2048)
+         return [(datakey,firstiv,datacrypter.encrypt(data))]
+ 
+ def DownloadHack(md_iface):
+@@ -79,11 +102,5 @@ def DownloadHack(md_iface):
+     md_session.close()
+ 
+ if __name__ == '__main__':
+-    from optparse import OptionParser
+-    parser = OptionParser()
+-    parser.add_option('-b', '--bus')
+-    parser.add_option('-d', '--device')
+-    (options, args) = parser.parse_args()
+-    assert len(args) < 2
+     main(bus=options.bus, device_address=options.device)
