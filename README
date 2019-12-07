@@ -1,3 +1,6 @@
+PROJECT HOME
+  https://wiki.physik.fu-berlin.de/linux-minidisc/doku.php
+
 PREREQUISITES
 
   qmake (you don't need the whole Qt stuff for the non-GUI parts, just qmake)
