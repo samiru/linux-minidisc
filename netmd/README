@@ -57,6 +57,7 @@ FILES
     mdctl.py     Stupid pdb-based command line to test libnetmd.py methods.
     lsmd.py      Display disc title, tracks, ... of connected NetMD.
     dump_md.py   Play tracks on a connected NetMD and record them to files.
+    downloadhack.py Upload tracks to NetMD (buggy)
 
 NOTES
   You need to be root to access a device on the USB bus (or at least, to have
@@ -66,3 +67,7 @@ NOTES
   for tracks to be properly recorded (depends on noise level, minidisk player
   reactivity...).
 
+DOWNLOADHACK ENHANCEMENTS
+
+Matthias Mailänder's patch to enable SP upload
+https://lists.fu-berlin.de/pipermail/linux-minidisc/2010-July/msg00000.html
