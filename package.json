@@ -1,0 +1,30 @@
+{
+    "name": "linux-minidisc",
+    "version": "1.0.0",
+    "description": "PROJECT HOME   https://wiki.physik.fu-berlin.de/linux-minidisc/doku.php",
+    "main": "index.js",
+    "directories": {
+        "doc": "docs"
+    },
+    "scripts": {
+        "build": "ts-node scripts/build.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/samiru/linux-minidisc.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/samiru/linux-minidisc/issues"
+    },
+    "homepage": "https://github.com/samiru/linux-minidisc#readme",
+    "dependencies": {
+        "@types/shelljs": "^0.8.6",
+        "shelljs": "^0.8.3",
+        "ts-node": "^8.5.4",
+        "typescript": "^3.7.3"
+    }
+}
