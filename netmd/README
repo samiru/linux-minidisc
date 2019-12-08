@@ -67,7 +67,26 @@ NOTES
   for tracks to be properly recorded (depends on noise level, minidisk player
   reactivity...).
 
+
 DOWNLOADHACK ENHANCEMENTS
 
 Matthias Mailänder's patch to enable SP upload
 https://lists.fu-berlin.de/pipermail/linux-minidisc/2010-July/msg00000.html
+
+FROM YOUTUBE TO MD SEQUENCE
+
+- youtube-dl -x --audio-format wav "https://www.youtube.com/watch?v=RYz2J4DmxVA"
+- ffmpeg -i tmp/testi.wav -f s16be tmp/testi.pcm
+- ./downloadhack.py -f tmp/testi.pcm -t testi
+
+
+VIRTUALENV
+
+Create new virtual environment with
+- virtualenv venv
+
+Activate virtual environment with (fish shell)
+- source env/bin/activate.fish
+
+Deactivate virtual environment with
+- deactivate

@@ -14,6 +14,8 @@ from Crypto.Cipher import DES
 # plug in your NetMD using USB and use this script accordingly (title is optional):
 # sudo python downloadhack.py --filename ~/music/test.raw --title songtitle
 
+# https://www.y2mate.com/en6/youtube-mp3
+
 from optparse import OptionParser
 parser = OptionParser()
 parser.add_option('-b', '--bus')
@@ -21,6 +23,11 @@ parser.add_option('-d', '--device')
 parser.add_option('-f', '--filename')
 parser.add_option('-t', '--title')
 (options, args) = parser.parse_args()
+
+#if len(args) < 1:
+#    parser.print_help()
+#    exit()
+
 assert len(args) < 4
 filename=options.filename
 if options.title != None:
