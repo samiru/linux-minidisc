@@ -6,3 +6,7 @@ Info.plist
 Makefile*
 *.user
 qtc-gdbmacros
+.DS_Store
+.qmake.stash
+.vscode
+node_modules
